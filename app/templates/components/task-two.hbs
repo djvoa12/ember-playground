@@ -1,0 +1,113 @@
+<h2>Task 2</h2>
+
+<form
+  autocomplete="off"
+  class="ui form {{if (v-get this "isInvalid") "error"}}"
+  onsubmit={{action "submitForm"}}>
+  <label for="principal">Principal Amount:</label>
+  <div class="ui input">
+    <input
+      id="principal"
+      name="principal"
+      placeholder="i.e. 100000"
+      type="text"
+      value={{this.principal}}
+      onchange={{action "updateProperty" "principal"}}
+      onfocus={{action (mut this.principalInputFocused) true}}>
+    {{#if (and this.principalInputFocused (v-get this "principal" "isInvalid"))}}
+      <div class="ui error message">
+        <span>{{v-get this "principal" "message"}}</span>
+      </div>
+    {{/if}}
+  </div>
+
+  <label for="months">Number of Months:</label>
+  <div class="ui input">
+    <input
+      id="months"
+      name="months"
+      placeholder="i.e. 360"
+      type="text"
+      value={{this.months}}
+      onchange={{action "updateProperty" "months"}}
+      onfocus={{action (mut this.monthsInputFocused) true}}>
+    {{#if (and this.monthsInputFocused (v-get this "months" "isInvalid"))}}
+      <div class="ui error message">
+        <span>{{v-get this "months" "message"}}</span>
+      </div>
+    {{/if}}
+  </div>
+
+  <label for="annual-rate">Annual Interest Rate:</label>
+  <div class="ui input">
+    <input
+      id="annual-rate"
+      name="annual rate"
+      placeholder="i.e. 4 (for 4%)"
+      type="text"
+      value={{this.annualRate}}
+      onchange={{action "updateProperty" "annualRate"}}
+      onfocus={{action (mut this.annualRateInputFocused) true}}>
+    {{#if (and this.annualRateInputFocused (v-get this "annualRate" "isInvalid"))}}
+      <div class="ui error message">
+        <span>{{v-get this "annualRate" "message"}}</span>
+      </div>
+    {{/if}}
+  </div>
+
+  <button
+    class="ui button primary"
+    disabled={{v-get this "isInvalid"}}>
+    Submit
+  </button>
+</form>
+
+{{#if this.amortizationSchedule}}
+  <div>
+    <div class="summary-row">
+      <label>Total Repaid:</label>
+      <span class="ui label">{{format-currency this.totalRepaid}}</span>
+    </div>
+
+    <div class="summary-row">
+      <label>Total Interest Repaid:</label>
+      <span class="ui label">
+        {{format-currency this.totalInterestPaid}}
+      </span>
+    </div>
+  </div>
+{{/if}}
+
+<table class="ui celled table">
+  <thead>
+    <tr>
+      <th>Payment Number</th>
+      <th>Monthly Payment</th>
+      <th>Principal</th>
+      <th>Interest</th>
+      <th>Cumulative Principal</th>
+      <th>Cumulative Interest</th>
+      <th>Principal Balance</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each this.amortizationSchedule as |row|}}
+      <tr>
+        <td>{{row.paymentNumber}}</td>
+        <td>{{format-currency row.monthlyPayment}}</td>
+        <td>{{format-currency row.principalPayment}}</td>
+        <td>{{format-currency row.interestPayment}}</td>
+        <td>{{format-currency row.cumulativePrincipal}}</td>
+        <td>{{format-currency row.cumulativeInterest}}</td>
+        <td>{{format-currency row.principalBalance}}</td>
+      </tr>
+    {{else}}
+      <tr>
+        <td class="no-results" colspan="7">
+          Please provide all applicable information above and submit
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
