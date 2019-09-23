@@ -1,0 +1,61 @@
+<h2>Task 1</h2>
+
+<form
+  autocomplete="off"
+  class="ui form {{if (v-get this "isInvalid") "error"}}"
+  onsubmit={{action "submitForm"}}>
+  <label for="url">URL:</label>
+  <div class="ui input">
+    <input
+      id="url"
+      name="url"
+      placeholder="i.e. https://google.com"
+      type="text"
+      value={{this.url}}
+      onchange={{action (mut this.url) value="target.value"}}
+      onfocus={{action (mut this.urlInputFocused) true}}>
+    {{#if (and this.urlInputFocused (v-get this "url" "isInvalid"))}}
+      <div class="ui error message">
+        <span>{{v-get this "url" "message"}}</span>
+      </div>
+    {{/if}}
+  </div>
+
+  <label for="word">Word:</label>
+  <div class="ui input">
+    <input
+      id="word"
+      name="word"
+      placeholder="i.e. hello"
+      type="text"
+      value={{this.word}}
+      onchange={{action (mut this.word) value="target.value"}}
+      onfocus={{action (mut this.wordInputFocused) true}}>
+    {{#if (and this.wordInputFocused (v-get this "word" "isInvalid"))}}
+      <div class="ui error message">
+        <span>{{v-get this "word" "message"}}</span>
+      </div>
+    {{/if}}
+  </div>
+
+  <button
+    class="ui button primary"
+    disabled={{or (v-get this "isInvalid") this.findWordCount.isRunning}}>
+    {{#if this.findWordCount.isRunning}}
+      <FaIcon @icon="spinner" @spin=true/>
+    {{else}}
+      Submit
+    {{/if}}
+  </button>
+</form>
+
+<div class="results">
+  <label>Count of word matches:</label>
+  <span class="ui label">
+    {{#if this.findWordCount.isRunning}}
+      <FaIcon @icon="spinner" @spin=true/>
+    {{else}}
+      {{this.count}}
+    {{/if}}
+  </span>
+</div>
