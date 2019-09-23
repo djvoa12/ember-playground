@@ -1,0 +1,78 @@
+<h2>Task 3</h2>
+
+<form
+  autocomplete="off"
+  class="ui form {{if (v-get this "isInvalid") "error"}}"
+  onsubmit={{action "submitForm"}}>
+  <label for="width">Width:</label>
+  <div class="ui input">
+    <input
+      id="width"
+      name="width"
+      type="text"
+      value={{this.width}}
+      onchange={{action (mut this.width) value="target.value"}}
+      onfocus={{action (mut this.widthInputFocused) true}}>
+    {{#if (and this.widthInputFocused (v-get this "width" "isInvalid"))}}
+      <div class="ui error message">
+        <span>{{v-get this "width" "message"}}</span>
+      </div>
+    {{/if}}
+  </div>
+
+  <label for="height">Height:</label>
+  <div class="ui input">
+    <input
+      id="height"
+      name="height"
+      type="text"
+      value={{this.height}}
+      onchange={{action (mut this.height) value="target.value"}}
+      onfocus={{action (mut this.heightInputFocused) true}}>
+    {{#if (and this.heightInputFocused (v-get this "height" "isInvalid"))}}
+      <div class="ui error message">
+        <span>{{v-get this "height" "message"}}</span>
+      </div>
+    {{/if}}
+  </div>
+
+  <label for="x-axis">X-Axis:</label>
+  <div class="ui input">
+    <input
+      id="x-axis"
+      name="x axis"
+      type="text"
+      value={{this.xAxis}}
+      onchange={{action (mut this.xAxis) value="target.value"}}
+      onfocus={{action (mut this.xAxisInputFocused) true}}>
+    {{#if (and this.xAxisInputFocused (v-get this "xAxis" "isInvalid"))}}
+      <div class="ui error message">
+        <span>{{v-get this "xAxis" "message"}}</span>
+      </div>
+    {{/if}}
+  </div>
+
+  <label for="y-axis">Y-Axis:</label>
+  <div class="ui input">
+    <input
+      id="y-axis"
+      name="y axis"
+      type="text"
+      value={{this.yAxis}}
+      onchange={{action (mut this.yAxis) value="target.value"}}
+      onfocus={{action (mut this.yAxisInputFocused) true}}>
+    {{#if (and this.yAxisInputFocused (v-get this "yAxis" "isInvalid"))}}
+      <div class="ui error message">
+        <span>{{v-get this "yAxis" "message"}}</span>
+      </div>
+    {{/if}}
+  </div>
+
+  <button class="ui button primary" disabled={{v-get this "isInvalid"}}>
+    Submit
+  </button>
+</form>
+
+<div class="canvas">
+  <div class="rectangle"></div>
+</div>
