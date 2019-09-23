@@ -1,0 +1,52 @@
+$black: #000000;
+$gray: #F9FAFB;
+
+.container {
+  margin-top: 32px;
+
+  .ui.input {
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  form {
+    width: 224px;
+  }
+
+  .task {
+    margin-bottom: 48px;
+  }
+
+  .task__one {
+    .results {
+      margin-top: 16px;
+    }
+  }
+
+  .task__two {
+    .summary-row {
+      margin: 24px 0;
+    }
+
+    .no-results {
+      text-align: center;
+    }
+  }
+
+  .task__three {
+    div.canvas {
+      background: $gray;
+      border:1px solid $black;
+      margin-top: 16px;
+      overflow: scroll;
+      height: 400px;
+      min-width: 100%;
+
+      .rectangle {
+        background: $black;
+        display: inline-block;
+        position: relative;
+      }
+    }
+  }
+}
